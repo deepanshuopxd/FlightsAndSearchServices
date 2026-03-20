@@ -11,7 +11,7 @@ class CityRepository{
         }
     }
 
-    async deleteCity({cityId}){
+    async deleteCity(cityId){
         try{
             await City.destroy({
                 where:{
@@ -26,11 +26,18 @@ class CityRepository{
 
     async updateCity(cityId , data){
         try {
-            const city = await City.update(data,{
-                where: {
-                    id :cityId
-                }
-            })
+            // The below approach also works but will not return  updated object
+            // If we are using postgress then returning: true can be used , else not
+            // const city = await City.update(data,{
+            //     where: {
+            //         id :cityId
+            //     }
+            // })
+            // return city;
+
+            const city  = await City.findByPk(cityId);
+            city.name = data.name ;
+            await city.save();
             return city;
              
         } catch (error) {
@@ -40,7 +47,7 @@ class CityRepository{
 
     }
 
-    async getCity({cityId}){
+    async getCity(cityId){
         try {
             const city = await City.findByPk(cityId);
             return city;  
@@ -48,6 +55,16 @@ class CityRepository{
             console.log("Somethign went wrong in the  repository layer");
             throw {error};
             
+        }
+    }
+
+    async getAllCities(){
+        try {
+            const cities = await City.findAll();
+            return cities;
+        } catch (error) {
+            console.log("Somethign went wrong in the  repository layer");
+            throw {error};
         }
     }
 
