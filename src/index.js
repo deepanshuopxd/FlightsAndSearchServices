@@ -3,6 +3,7 @@ const bodyParser  = require('body-parser');
 // require('dotenv').config();
 const {PORT} = require('./config/serverConfig')
 const {City} = require('./models/index');
+const ApiRoutes = require('./routes/index');
 const CityRepository = require('./repository/city-repository');
 const SetupAndStartService = async ()=>{
     // const PORT = 3000;
@@ -15,7 +16,8 @@ const SetupAndStartService = async ()=>{
         // await City.create({
         //     name:"New Delhi",
         // })
-
+        app.use('/api' , ApiRoutes);
+        
         const repo = new CityRepository();
         // repo.createCity({name:"Mumbai"});
         // repo.createCity({name:"New Delhi"});
