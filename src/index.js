@@ -18,11 +18,11 @@ const SetupAndStartService = async () => {
     app.listen(PORT, async () => {
         console.log(`The server is started and running on ${PORT}`);
 
-        try {
+        
             // Sync database only if SYNC_DB is set in .env
-            if (process.env.SYNC_DB) {
-                await db.sequelize.sync({ alter: true });
-            }
+            // if (process.env.SYNC_DB) {
+            //     await db.sequelize.sync({ alter: true });
+    //}
 
             // Create a sample airplane
             // const airplane = await Airplane.create({
@@ -38,9 +38,7 @@ const SetupAndStartService = async () => {
             // const repo = new CityRepository();
             // await repo.createCity({ name: "Mumbai" });
 
-        } catch (error) {
-            console.error("Error:", error);
-        }
+            
     });
 };
 
